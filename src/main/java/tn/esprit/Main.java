@@ -35,6 +35,13 @@ public class Main {
                 boolean deleteOK = stockService.delete(s);
                 System.out.println("Suppression ? " + deleteOK);
             }*/
+        stock s = stockService.getById(3);
+        if (s != null) {
+            System.out.println("Produit trouvé : " + s.getNom_prod());
+        } else {
+            System.out.println("Aucun produit avec cet ID.");
+        }
+
 
     }
 }
