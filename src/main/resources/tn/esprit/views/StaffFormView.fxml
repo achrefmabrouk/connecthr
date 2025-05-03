@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane style="-fx-background-color: #f8f9fa;" xmlns="http://javafx.com/javafx/22.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.StaffFormController">
+    <VBox spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
+        <Label fx:id="titleLabel" text="Ajouter personnel">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="15.0" />
+            </VBox.margin>
+        </Label>
+        <GridPane styleClass="form-grid" hgap="40.0" vgap="15.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
+                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Nom (*)" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="nomField" promptText="entrer votre nom" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Prénom (*)" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <TextField fx:id="prenomField" promptText="entrer votre prénom" styleClass="form-field" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                <Label text="Addresse" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="addressField" promptText="entrer votre addresse" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Téléphone" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <TextField fx:id="telephoneField" promptText="entrer votre téléphone" styleClass="form-field" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                <Label text="Role (*)" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <ComboBox fx:id="roleComboBox" maxWidth="1.7976931348623157E308" promptText="sélectionner" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Département (*)" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <ComboBox fx:id="departmentComboBox" maxWidth="1.7976931348623157E308" promptText="sélectionner" styleClass="form-field" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+
+                <Label text="Sex (*)" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <ComboBox fx:id="sexComboBox" maxWidth="1.7976931348623157E308" promptText="sélectionner" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Taux Journalier (€)" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextField fx:id="dailyRateField" promptText="Ex: 95.50" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Jours Congé Restants" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <TextField fx:id="leaveDaysField" promptText="Ex: 20" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+            </children>
+        </GridPane>
+        <Label fx:id="errorLabel" managed="false" text="Message d'erreur" wrapText="true">
+            <VBox.margin>
+                <Insets top="5.0" />
+            </VBox.margin>
+        </Label>
+        <HBox alignment="BOTTOM_LEFT" spacing="10.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleFormDelete" text="Supprimer" visible="false" HBox.hgrow="NEVER" />
+                <Pane HBox.hgrow="ALWAYS" />
+                <Button fx:id="cancelButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleCancel" text="Annuler" HBox.hgrow="NEVER" />
+                <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleSave" prefHeight="40.0" prefWidth="150.0" text="Enregistrer" HBox.hgrow="NEVER">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+            <VBox.margin>
+                <Insets top="20.0" />
+            </VBox.margin>
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="dashboardContainer" spacing="30.0" style="-fx-background-color: #f8f9fa;" xmlns="http://javafx.com/javafx/22.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.DashboardController">
+    <padding>
+        <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+    </padding>
+    <Label text="Tableau de Bord Principal">
+        <font>
+            <Font name="System Bold" size="24.0" />
+        </font>
+        <VBox.margin>
+            <Insets bottom="10.0" />
+        </VBox.margin>
+    </Label>
+
+
+    <HBox alignment="CENTER" spacing="30.0" VBox.vgrow="ALWAYS">
+        <children>
+            <VBox alignment="CENTER" styleClass="chart-container" HBox.hgrow="ALWAYS">
+                <Label text="Répartition par Département">
+                    <font><Font name="System Bold" size="16.0" /></font>
+                    <VBox.margin><Insets bottom="10.0" /></VBox.margin>
+                </Label>
+                <PieChart fx:id="departmentPieChart" legendVisible="true" titleSide="BOTTOM" prefHeight="300" />
+            </VBox>
+
+            <VBox alignment="CENTER" styleClass="chart-container" HBox.hgrow="ALWAYS">
+                <Label text="Répartition par Rôle">
+                    <font><Font name="System Bold" size="16.0" /></font>
+                    <VBox.margin><Insets bottom="10.0" /></VBox.margin>
+                </Label>
+                <PieChart fx:id="rolePieChart" legendVisible="true" titleSide="BOTTOM" prefHeight="300"/>
+            </VBox>
+
+
+            <VBox alignment="CENTER" styleClass="chart-container" HBox.hgrow="ALWAYS">
+                <Label text="Statut Présence Aujourd'hui">
+                    <font><Font name="System Bold" size="16.0" /></font>
+                    <VBox.margin><Insets bottom="10.0" /></VBox.margin>
+                </Label>
+                <PieChart fx:id="todayStatusPieChart" legendVisible="true" titleSide="BOTTOM" prefHeight="300"/>
+            </VBox>
+
+        </children>
+    </HBox>
+</VBox>
