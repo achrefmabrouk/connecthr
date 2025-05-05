@@ -7,14 +7,14 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Simulation d'un utilisateur avec grade et département
-        String grade = "responsable";  // exemple : "admin", "responsable", ou autre
-        String departement = "stock"; // exemple : "stock" ou autre département
 
-        // Création de l'instance du service Stock
+        String grade = "responsable";
+        String departement = "stock";
+
+
         StockService stockService = new StockService(grade, departement);
 
-        // Création d'un nouvel objet Stock
+
         Stock nouveauStock = new Stock();
         nouveauStock.setNom_prod("Ordinateur Portable");
         nouveauStock.setCategorie("Informatique");
@@ -22,7 +22,7 @@ public class Main {
         nouveauStock.setPrix(899.99f);
         nouveauStock.setQuantite(50);
 
-        // Tentative d'ajout du stock
+
         boolean ajoutReussi = stockService.add(nouveauStock);
         if (ajoutReussi) {
             System.out.println("Stock ajouté avec succès.");
@@ -30,7 +30,7 @@ public class Main {
             System.out.println("Échec de l'ajout du stock.");
         }
 
-        // Tentative de mise à jour du stock
+
         Stock stockExist = stockService.getAll().stream()
                 .filter(s -> s.getNom_prod().equals("Ordinateur Portable"))
                 .findFirst().orElse(null);
@@ -47,7 +47,7 @@ public class Main {
             System.out.println("Le stock à mettre à jour n'existe pas.");
         }
 
-        // Tentative de suppression du stock
+
         if (stockExist != null) {
             boolean suppressionReussi = stockService.delete(stockExist);
             if (suppressionReussi) {
@@ -59,7 +59,7 @@ public class Main {
             System.out.println("Le stock à supprimer n'existe pas.");
         }
 
-        // Récupération et affichage de tous les stocks
+
         List<Stock> stocks = stockService.getAll();
         if (stocks.isEmpty()) {
             System.out.println("Aucun stock trouvé.");

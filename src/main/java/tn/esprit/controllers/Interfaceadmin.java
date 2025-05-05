@@ -21,13 +21,13 @@ import java.util.ResourceBundle;
 public class Interfaceadmin implements Initializable {
 
     @FXML
-    private FlowPane cardlayouuts; // Utilisé pour afficher les employés ou stocks (remplacé par mainContent pour les stocks)
+    private FlowPane cardlayouuts;
 
     private List<employe> employeList;
     private List<Stock> stockList;
 
     @FXML
-    private VBox mainContent; // Utilisé pour afficher les stocks ou employés
+    private VBox mainContent;
 
 
 

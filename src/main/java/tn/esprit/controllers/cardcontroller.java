@@ -28,13 +28,13 @@ public class cardcontroller {
     @FXML private Label prixStockLabel;
     @FXML private Label quantiteStockLabel;
 
-    // Méthode existante pour les employés
+
     public void setData(employe e) {
         try {
-            String imageUrl = e.getImageSrc(); // Exemple : http://localhost/images/photo1.jpg
+            String imageUrl = e.getImageSrc();
 
             if (imageUrl != null && !imageUrl.trim().isEmpty()) {
-                Image image = new Image(imageUrl, true); // Chargement asynchrone
+                Image image = new Image(imageUrl, true);
                 imgemp.setImage(image);
             } else {
                 System.err.println("URL d'image vide pour l'employé : " + e.getNom());
@@ -44,7 +44,7 @@ public class cardcontroller {
             System.err.println(ex.getMessage());
         }
 
-        // Affectation des données texte
+
         nomemp.setText(e.getNom() + " " + e.getPrenom());
         gradeemp.setText(e.getGrade() + " - " + e.getPoste());
 
@@ -56,9 +56,9 @@ public class cardcontroller {
         congesLabel.setText("Congés restants : " + e.getJoursCongesRestants());
     }
 
-    // Nouvelle méthode pour les stocks
+
     public void setData(Stock stock) {
-        // Affectation des données du stock
+
         nomStockLabel.setText(stock.getNom_prod());
         categorieStockLabel.setText("Catégorie : " + stock.getCategorie());
         statutStockLabel.setText("Statut : " + stock.getStatut());

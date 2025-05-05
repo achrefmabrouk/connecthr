@@ -117,7 +117,7 @@ public class employeservice implements Icrud<employe> {
         employe emp = null;
         String qry;
 
-        // Vérifier les droits d'accès en fonction du grade
+
         if (grade_emp.equals("admin")) {
             qry = "SELECT * FROM employe WHERE id = ?";
         } else if (grade_emp.equals("responsable")) {

@@ -13,7 +13,7 @@ public class StockService implements Icrud<Stock> {
     private String grade_emp;
     private String depart_emp;
 
-    // Constructeur sans paramètres
+
     public StockService() {
         cnx = connecthrDB.getInstance().getCnx();
     }
@@ -23,14 +23,14 @@ public class StockService implements Icrud<Stock> {
         this.grade_emp = grade_emp;
     }
 
-    // Constructeur avec grade et département
+
     public StockService(String grade_emp, String depart_emp) {
         cnx = connecthrDB.getInstance().getCnx();
         this.grade_emp = grade_emp;
         this.depart_emp = depart_emp;
     }
 
-    // Vérification des droits d'accès
+
     private boolean aLesDroitsStock() {
         return grade_emp.equals("admin") ||
                 (grade_emp.equals("responsable") && depart_emp.equals("stock"));
