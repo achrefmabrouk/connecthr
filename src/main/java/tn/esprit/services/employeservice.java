@@ -1,31 +1,68 @@
 package tn.esprit.services;
+
 import tn.esprit.interfaces.Icrud;
 import tn.esprit.models.employe;
 import tn.esprit.utils.connecthrDB;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class employeservice implements Icrud<employe> {
-    private Connection cnx  ;
+    private Connection cnx;
+    private String grade_emp;
+    private String depart_emp;
+    private int id_emp;
+
+
+
     public employeservice(){
         cnx = connecthrDB.getInstance().getCnx();
+        this.grade_emp = grade_emp;
+        this.depart_emp = depart_emp;
+    }
+
+    public employeservice(String grade_emp, String depart_emp) {
+        cnx = connecthrDB.getInstance().getCnx();
+        this.depart_emp = depart_emp;
+        this.grade_emp = grade_emp;
+    }
+
+    public employeservice(String grade_emp) {
+        cnx = connecthrDB.getInstance().getCnx();
+        this.grade_emp = grade_emp;
     }
 
     @Override
-    public boolean add(employe e) {
-        String qry ="INSERT INTO `e`( `nom`,`prenom`, `telephone`,`poste`) VALUES (?,?,?,?)";
-        try {
-            PreparedStatement pstm = cnx.prepareStatement(qry);
-            pstm.setString(1,e.getNom());
-            pstm.setString(2,e.getPrenom());
-            pstm.setInt(3,e.getTelephone());
-            pstm.setString(4,e.getPoste());
-            pstm.executeUpdate();
-            return true;
+    public boolean add(employe employe) {
+        if (grade_emp.equals("admin") ||
+                (grade_emp.equals("responsable") && employe.getDepartement().equals(depart_emp))) {
 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            String qry = "INSERT INTO employe(nom, prenom, sexe, telephone, poste, departement, grade, adresse, TarifJournalier, niveau, JoursCongesRestants) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            try {
+                PreparedStatement pstm = cnx.prepareStatement(qry);
+                pstm.setString(1, employe.getNom());
+                pstm.setString(2, employe.getPrenom());
+                pstm.setString(3, employe.getSexe());
+                pstm.setInt(4, employe.getTelephone());
+                pstm.setString(5, employe.getPoste());
+                pstm.setString(6, employe.getDepartement());
+                pstm.setString(7, employe.getGrade());
+                pstm.setString(8, employe.getAdresse());
+                pstm.setDouble(9, employe.getTarifJournalier());
+                pstm.setString(10, employe.getNiveau());
+                pstm.setInt(11, employe.getJoursCongesRestants());
+
+                pstm.executeUpdate();
+                return true;
+
+            } catch (SQLException ex) {
+                System.out.println("Erreur SQL : " + ex.getMessage());
+                return false;
+            }
+        } else {
+            System.out.println("Action non autorisée.");
             return false;
         }
     }
@@ -33,62 +70,152 @@ public class employeservice implements Icrud<employe> {
     @Override
     public List<employe> getAll() {
         List<employe> employes = new ArrayList<>();
-        String qry ="SELECT * FROM `e`";
-        try {
-            Statement stm = cnx.createStatement();
-            ResultSet rs = stm.executeQuery(qry);
+        String qry;
 
-            while(rs.next()){
-                employe e =new employe();
-                e.setId(rs.getInt(1));
-                e.setNom(rs.getString(2));
-                e.setPrenom(rs.getString(3));
-                e.setTelephone(rs.getInt(4));
-                e.setPoste(rs.getString(5));
-                employes.add(e);
+        if (grade_emp.equals("admin")) {
+            qry = "SELECT * FROM employe";
+        } else if (grade_emp.equals("responsable")) {
+            qry = "SELECT * FROM employe WHERE departement = ?";
+        } else {
+            qry = "SELECT * FROM employe WHERE id = ?";
+        }
+
+        try {
+            PreparedStatement stm = cnx.prepareStatement(qry);
+            if (grade_emp.equals("responsable")) {
+                stm.setString(1, depart_emp);
+            } else if (!grade_emp.equals("admin")) {
+                stm.setInt(1, id_emp);
+            }
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                employe emp = new employe();
+                emp.setId(rs.getInt("id"));
+                emp.setNom(rs.getString("nom"));
+                emp.setPrenom(rs.getString("prenom"));
+                emp.setSexe(rs.getString("sexe"));
+                emp.setTelephone(rs.getInt("telephone"));
+                emp.setPoste(rs.getString("poste"));
+                emp.setDepartement(rs.getString("departement"));
+                emp.setGrade(rs.getString("grade"));
+                emp.setAdresse(rs.getString("adresse"));
+                emp.setTarifJournalier(rs.getDouble("TarifJournalier"));
+                emp.setNiveau(rs.getString("niveau"));
+                emp.setJoursCongesRestants(rs.getInt("JoursCongesRestants"));
+                emp.setImageSrc(rs.getString("ImageSrc"));
+
+                employes.add(emp);
             }
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("Erreur SQL : " + ex.getMessage());
         }
         return employes;
     }
 
-    @Override
-    public boolean update(employe e) {
-        String qry ="UPDATE `e` SET `nom`=?,`prenom`=?,`telephone`=?,`poste`=? where `id`=?";
-        try {
-            PreparedStatement pstm1 = cnx.prepareStatement(qry);
-            pstm1.setString(1,e.getNom());
-            pstm1.setString(2,e.getPrenom());
-            pstm1.setInt(3,e.getTelephone());
-            pstm1.setString(4,e.getPoste());
-            pstm1.executeUpdate();
-            return true;
+    public employe getEmployeById(int id) {
+        employe emp = null;
+        String qry;
 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return false;
+        // Vérifier les droits d'accès en fonction du grade
+        if (grade_emp.equals("admin")) {
+            qry = "SELECT * FROM employe WHERE id = ?";
+        } else if (grade_emp.equals("responsable")) {
+            qry = "SELECT * FROM employe WHERE id = ? AND departement = ?";
+        } else {
+            qry = "SELECT * FROM employe WHERE id = ? AND id = ?";
         }
 
-    }
-
-    @Override
-    public boolean delete(employe e) {
-        String qry ="DELETE FROM `e` WHERE id=?";
-        PreparedStatement pstm2 = null;
-
         try {
-            pstm2 = cnx.prepareStatement(qry);
-            pstm2.setInt(1, e.getId());
-            pstm2.executeUpdate();
-            return true;
+            PreparedStatement stm = cnx.prepareStatement(qry);
+            if (grade_emp.equals("responsable")) {
+                stm.setInt(1, id);
+                stm.setString(2, depart_emp);
+            } else if (!grade_emp.equals("admin")) {
+                stm.setInt(1, id);
+            } else {
+                stm.setInt(1, id);
+            }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                emp = new employe();
+                emp.setId(rs.getInt("id"));
+                emp.setNom(rs.getString("nom"));
+                emp.setPrenom(rs.getString("prenom"));
+                emp.setSexe(rs.getString("sexe"));
+                emp.setTelephone(rs.getInt("telephone"));
+                emp.setPoste(rs.getString("poste"));
+                emp.setDepartement(rs.getString("departement"));
+                emp.setGrade(rs.getString("grade"));
+                emp.setAdresse(rs.getString("adresse"));
+                emp.setTarifJournalier(rs.getDouble("TarifJournalier"));
+                emp.setNiveau(rs.getString("niveau"));
+                emp.setJoursCongesRestants(rs.getInt("JoursCongesRestants"));
+                emp.setImageSrc(rs.getString("ImageSrc"));
+            }
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            return false;
+            System.out.println("Erreur SQL : " + ex.getMessage());
         }
 
-
+        return emp;
     }
 
 
+    @Override
+    public boolean update(employe employe) {
+        if (grade_emp.equals("admin") ||
+                (grade_emp.equals("responsable") && employe.getDepartement().equals(depart_emp)) ||
+                (!grade_emp.equals("admin") && !grade_emp.equals("responsable") && employe.getId() == id_emp)) {
+
+            String qry = "UPDATE employe SET nom=?, prenom=?, sexe=?, telephone=?, poste=?, grade=?, departement=?, adresse=?, TarifJournalier=?, niveau=?, JoursCongesRestants=? WHERE id=?";
+
+            try {
+                PreparedStatement pstm = cnx.prepareStatement(qry);
+                pstm.setString(1, employe.getNom());
+                pstm.setString(2, employe.getPrenom());
+                pstm.setString(3, employe.getSexe());
+                pstm.setInt(4, employe.getTelephone());
+                pstm.setString(5, employe.getPoste());
+                pstm.setString(6, employe.getGrade());
+                pstm.setString(7, employe.getDepartement());
+                pstm.setString(8, employe.getAdresse());
+                pstm.setDouble(9, employe.getTarifJournalier());
+                pstm.setString(10, employe.getNiveau());
+                pstm.setInt(11, employe.getJoursCongesRestants());
+                pstm.setInt(12, employe.getId());
+
+                pstm.executeUpdate();
+                return true;
+
+            } catch (SQLException ex) {
+                System.out.println("Erreur SQL : " + ex.getMessage());
+                return false;
+            }
+        } else {
+            System.out.println("Action non autorisée. Vous n'avez pas les droits.");
+            return false;
+        }
+    }
+
+
+    @Override
+    public boolean delete(employe employe) {
+        if (grade_emp.equals("admin") ||
+                (grade_emp.equals("responsable") && employe.getDepartement().equals(depart_emp))) {
+            String qry = "DELETE FROM employe WHERE id=?";
+            try {
+                PreparedStatement pstm = cnx.prepareStatement(qry);
+                pstm.setInt(1, employe.getId());
+                pstm.executeUpdate();
+                return true;
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                return false;
+            }
+        } else {
+            System.out.println("Action non autorisée. Vous n'avez pas les droits.");
+            return false;
+        }
+    }
 }

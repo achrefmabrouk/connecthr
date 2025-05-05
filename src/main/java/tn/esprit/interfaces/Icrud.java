@@ -8,4 +8,5 @@ public interface Icrud<T> {
     List<T> getAll();
     boolean update (T t);
     boolean delete (T t);
+
 }

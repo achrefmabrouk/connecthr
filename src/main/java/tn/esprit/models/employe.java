@@ -2,25 +2,45 @@ package tn.esprit.models;
 
 public class employe {
 
-    private int id , telephone;
-    private String nom, prenom, poste;
+    private int id , telephone,JoursCongesRestants;
+    private String nom, prenom,sexe, poste , grade,adresse , departement, niveau,ImageSrc;
+    private double TarifJournalier;
 
 
     public employe() {
     }
-    public employe(int id, int telephone, String nom, String prenom, String poste) {
-        this.id = id;
-        this.telephone = telephone;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.poste = poste;
+
+    public employe(String grade) {
+        this.grade = grade;
     }
 
-    public employe(int telephone, String nom, String prenom, String poste) {
+    public employe(int id, double tarifJournalier, String niveau, String departement, String adresse, String poste, String grade, String sexe, String prenom, String nom, int telephone, int joursCongesRestants) {
+        this.id = id;
+        TarifJournalier = tarifJournalier;
+        this.niveau = niveau;
+        this.departement = departement;
+        this.adresse = adresse;
+        this.poste = poste;
+        this.grade = grade;
+        this.sexe = sexe;
+        this.prenom = prenom;
+        this.nom = nom;
         this.telephone = telephone;
+        JoursCongesRestants = joursCongesRestants;
+    }
+
+    public employe(double tarifJournalier, int telephone, int joursCongesRestants, String nom, String prenom, String sexe, String poste, String grade, String adresse, String departement, String niveau) {
+        TarifJournalier = tarifJournalier;
+        this.telephone = telephone;
+        JoursCongesRestants = joursCongesRestants;
         this.nom = nom;
         this.prenom = prenom;
+        this.sexe = sexe;
         this.poste = poste;
+        this.grade = grade;
+        this.adresse = adresse;
+        this.departement = departement;
+        this.niveau = niveau;
     }
 
     public int getId() {
@@ -31,28 +51,28 @@ public class employe {
         this.id = id;
     }
 
-    public int getTelephone() {
-        return telephone;
+    public String getNiveau() {
+        return niveau;
     }
 
-    public void setTelephone(int telephone) {
-        this.telephone = telephone;
+    public void setNiveau(String niveau) {
+        this.niveau = niveau;
     }
 
-    public String getNom() {
-        return nom;
+    public String getDepartement() {
+        return departement;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setDepartement(String departement) {
+        this.departement = departement;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
     public String getPoste() {
@@ -63,14 +83,72 @@ public class employe {
         this.poste = poste;
     }
 
-    @Override
-    public String toString() {
-        return "employe{" +
-                "id=" + id +
-                ", telephone=" + telephone +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", poste='" + poste + '\'' +
-                '}';
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public int getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(int telephone) {
+        this.telephone = telephone;
+    }
+
+    public double getTarifJournalier() {
+        return TarifJournalier;
+    }
+
+    public void setTarifJournalier(double tarifJournalier) {
+        TarifJournalier = tarifJournalier;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    public int getJoursCongesRestants() {
+        return JoursCongesRestants;
+    }
+
+    public void setJoursCongesRestants(int joursCongesRestants) {
+        JoursCongesRestants = joursCongesRestants;
+    }
+
+    public String getImageSrc() {
+        return ImageSrc;
+    }
+
+    public void setImageSrc(String imageSrc) {
+        ImageSrc = imageSrc;
+    }
+
+    public employe(String departement, String grade) {
+        this.departement = departement;
+        this.grade = grade;
     }
 }
