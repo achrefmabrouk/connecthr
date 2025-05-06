@@ -4,12 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tn.esprit.models.Stock;
-import tn.esprit.models.employe;
+import tn.esprit.models.Employe;
 import tn.esprit.services.StockService;
 import tn.esprit.services.employeservice;
 
@@ -23,7 +22,7 @@ public class Interfaceadmin implements Initializable {
     @FXML
     private FlowPane cardlayouuts;
 
-    private List<employe> employeList;
+    private List<Employe> employeList;
     private List<Stock> stockList;
 
     @FXML
@@ -42,15 +41,15 @@ public class Interfaceadmin implements Initializable {
     @FXML
     void afficherEmployes(ActionEvent event) {
 
-        cardlayouuts.getChildren().clear(); // Vide l'affichage actuel dans mainContent
-        employeList = listemploye(); // Récupère la liste des employés
+        cardlayouuts.getChildren().clear();
+        employeList = listemploye();
 
-        for (employe emp : employeList) {
+        for (Employe emp : employeList) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cards.fxml"));
                 HBox cardBox = fxmlLoader.load();
                 cardcontroller controller = fxmlLoader.getController();
-                controller.setData(emp); // Affecte les données de l'employé à la carte
+                controller.setData(emp);
                 cardlayouuts.getChildren().add(cardBox);
             } catch (IOException e) {
                 System.out.println("Erreur lors du chargement des cartes employé : " + e.getMessage());
@@ -59,44 +58,43 @@ public class Interfaceadmin implements Initializable {
 
     }
 
-    // Méthode pour afficher les stocks
     @FXML
     void affichestock(ActionEvent event) {
-        cardlayouuts.getChildren().clear(); // Vider le VBox principal (mainContent) pour afficher les stocks
+        cardlayouuts.getChildren().clear();
 
-        stockList = listStock(); // Récupère la liste des stocks
+        stockList = listStock();
 
-        FlowPane stockContainer = new FlowPane(); // Crée un conteneur temporaire pour les cartes de stock
-        stockContainer.setHgap(10); // Espacement horizontal
-        stockContainer.setVgap(10); // Espacement vertical
+        FlowPane stockContainer = new FlowPane();
+        stockContainer.setHgap(10);
+        stockContainer.setVgap(10);
 
         for (Stock stock : stockList) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cardstock.fxml"));
                 HBox cardBox = fxmlLoader.load();
 
-                // Utilisation du bon contrôleur pour afficher les stocks
-                StockController controller = fxmlLoader.getController();
-                controller.setData(stock); // Affecte les données du stock à la carte
 
-                stockContainer.getChildren().add(cardBox); // Ajoute la carte au conteneur
+                StockController controller = fxmlLoader.getController();
+                controller.setData(stock);
+
+                stockContainer.getChildren().add(cardBox);
             } catch (IOException e) {
                 System.out.println("Erreur lors du chargement des cartes stock : " + e.getMessage());
             }
         }
 
-        cardlayouuts.getChildren().add(stockContainer); // Affiche les cartes de stock dans le VBox principal (mainContent)
+        cardlayouuts.getChildren().add(stockContainer);
     }
 
-    // Méthode pour récupérer la liste des employés
-    private List<employe> listemploye() {
+
+    private List<Employe> listemploye() {
         employeservice employeservice = new employeservice("responsable", "IT");
-        return employeservice.getAll(); // Récupère les employés de la BD
+        return employeservice.getAll();
     }
 
-    // Méthode pour récupérer la liste des stocks
+
     private List<Stock> listStock() {
         StockService stockService = new StockService("admin");
-        return stockService.getAll(); // Récupère les stocks de la BD
+        return stockService.getAll();
     }
 }

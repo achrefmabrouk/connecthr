@@ -17,7 +17,7 @@ public class MainAPP extends Application {
     @Override
     public void start(Stage primaryStage) {
         System.out.println("Début lancement de l'application");
-        FXMLLoader loader =new FXMLLoader(getClass().getResource("/interfaceadmin.fxml"));
+        FXMLLoader loader =new FXMLLoader(getClass().getResource("/Login.fxml"));
         System.out.println("FXML chargé");
         try {
             Parent root = loader.load();

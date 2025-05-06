@@ -67,10 +67,10 @@
          </children>
       </VBox>
 
-      <!-- Zone pour pousser les boutons au coin inférieur droit -->
+
       <Region HBox.hgrow="ALWAYS" />
 
-      <!-- Icônes Modifier et Supprimer en boutons -->
+
       <VBox alignment="BOTTOM_RIGHT" spacing="10.0" style="-fx-padding: 10;">
          <children>
 

@@ -1,20 +1,20 @@
 package tn.esprit.models;
 
-public class employe {
+public class Employe {
 
     private int id , telephone,JoursCongesRestants;
-    private String nom, prenom,sexe, poste , grade,adresse , departement, niveau,ImageSrc;
+    private String nom, prenom,sexe, poste , grade,adresse , departement, niveau,ImageSrc, password;
     private double TarifJournalier;
 
 
-    public employe() {
+    public Employe() {
     }
 
-    public employe(String grade) {
+    public Employe(String grade) {
         this.grade = grade;
     }
 
-    public employe(int id, double tarifJournalier, String niveau, String departement, String adresse, String poste, String grade, String sexe, String prenom, String nom, int telephone, int joursCongesRestants) {
+    public Employe(int id, double tarifJournalier, String niveau, String departement, String adresse, String poste, String grade, String sexe, String prenom, String nom, int telephone, int joursCongesRestants) {
         this.id = id;
         TarifJournalier = tarifJournalier;
         this.niveau = niveau;
@@ -29,7 +29,7 @@ public class employe {
         JoursCongesRestants = joursCongesRestants;
     }
 
-    public employe(double tarifJournalier, int telephone, int joursCongesRestants, String nom, String prenom, String sexe, String poste, String grade, String adresse, String departement, String niveau) {
+    public Employe(double tarifJournalier, int telephone, int joursCongesRestants, String nom, String prenom, String sexe, String poste, String grade, String adresse, String departement, String niveau) {
         TarifJournalier = tarifJournalier;
         this.telephone = telephone;
         JoursCongesRestants = joursCongesRestants;
@@ -41,6 +41,14 @@ public class employe {
         this.adresse = adresse;
         this.departement = departement;
         this.niveau = niveau;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getId() {
@@ -147,7 +155,7 @@ public class employe {
         ImageSrc = imageSrc;
     }
 
-    public employe(String departement, String grade) {
+    public Employe(String departement, String grade) {
         this.departement = departement;
         this.grade = grade;
     }

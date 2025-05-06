@@ -2,12 +2,10 @@ package tn.esprit.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import tn.esprit.models.Stock;
-import tn.esprit.models.employe;
+import tn.esprit.models.Employe;
 
 public class StockController {
 
@@ -20,9 +18,9 @@ public class StockController {
 
     @FXML private ImageView imageProduit;
 
-    private employe employeConnecte;
+    private Employe employeConnecte;
 
-    public void setEmployeConnecte(employe employeConnecte) {
+    public void setEmployeConnecte(Employe employeConnecte) {
         this.employeConnecte = employeConnecte;
     }
 

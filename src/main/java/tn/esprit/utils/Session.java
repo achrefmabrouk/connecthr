@@ -1,16 +1,16 @@
 package tn.esprit.utils;
 
-import tn.esprit.models.employe;
+import tn.esprit.models.Employe;
 
 public class Session {
 
-    private static employe employeConnecte;
+    private static Employe employeConnecte;
 
-    public static void setEmployeConnecte(employe emp) {
+    public static void setEmployeConnecte(Employe emp) {
         employeConnecte = emp;
     }
 
-    public static employe getEmployeConnecte() {
+    public static Employe getEmployeConnecte() {
         return employeConnecte;
     }
 

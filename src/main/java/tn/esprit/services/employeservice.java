@@ -1,14 +1,14 @@
 package tn.esprit.services;
 
 import tn.esprit.interfaces.Icrud;
-import tn.esprit.models.employe;
+import tn.esprit.models.Employe;
 import tn.esprit.utils.connecthrDB;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class employeservice implements Icrud<employe> {
+public class employeservice implements Icrud<Employe> {
     private Connection cnx;
     private String grade_emp;
     private String depart_emp;
@@ -34,7 +34,7 @@ public class employeservice implements Icrud<employe> {
     }
 
     @Override
-    public boolean add(employe employe) {
+    public boolean add(Employe employe) {
         if (grade_emp.equals("admin") ||
                 (grade_emp.equals("responsable") && employe.getDepartement().equals(depart_emp))) {
 
@@ -68,8 +68,8 @@ public class employeservice implements Icrud<employe> {
     }
 
     @Override
-    public List<employe> getAll() {
-        List<employe> employes = new ArrayList<>();
+    public List<Employe> getAll() {
+        List<Employe> employes = new ArrayList<>();
         String qry;
 
         if (grade_emp.equals("admin")) {
@@ -90,7 +90,7 @@ public class employeservice implements Icrud<employe> {
 
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                employe emp = new employe();
+                Employe emp = new Employe();
                 emp.setId(rs.getInt("id"));
                 emp.setNom(rs.getString("nom"));
                 emp.setPrenom(rs.getString("prenom"));
@@ -113,8 +113,8 @@ public class employeservice implements Icrud<employe> {
         return employes;
     }
 
-    public employe getEmployeById(int id) {
-        employe emp = null;
+    public Employe getEmployeById(int id) {
+        Employe emp = null;
         String qry;
 
 
@@ -139,7 +139,7 @@ public class employeservice implements Icrud<employe> {
 
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                emp = new employe();
+                emp = new Employe();
                 emp.setId(rs.getInt("id"));
                 emp.setNom(rs.getString("nom"));
                 emp.setPrenom(rs.getString("prenom"));
@@ -163,7 +163,7 @@ public class employeservice implements Icrud<employe> {
 
 
     @Override
-    public boolean update(employe employe) {
+    public boolean update(Employe employe) {
         if (grade_emp.equals("admin") ||
                 (grade_emp.equals("responsable") && employe.getDepartement().equals(depart_emp)) ||
                 (!grade_emp.equals("admin") && !grade_emp.equals("responsable") && employe.getId() == id_emp)) {
@@ -200,7 +200,7 @@ public class employeservice implements Icrud<employe> {
 
 
     @Override
-    public boolean delete(employe employe) {
+    public boolean delete(Employe employe) {
         if (grade_emp.equals("admin") ||
                 (grade_emp.equals("responsable") && employe.getDepartement().equals(depart_emp))) {
             String qry = "DELETE FROM employe WHERE id=?";

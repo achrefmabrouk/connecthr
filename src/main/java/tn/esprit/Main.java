@@ -1,74 +1,40 @@
 package tn.esprit;
 
-import tn.esprit.models.Stock;
-import tn.esprit.services.StockService;
-
-import java.util.List;
+import tn.esprit.models.Employe;
+import tn.esprit.services.AuthService;
+import tn.esprit.services.RegisterService;
 
 public class Main {
     public static void main(String[] args) {
+        // Tester l'authentification (login)
+        AuthService authService = new AuthService();
 
-        String grade = "responsable";
-        String departement = "stock";
+        // Tester une connexion avec des informations valides
+        Employe loginSuccess = authService.login("djebbi", "password123");
+        System.out.println("Login success: " + loginSuccess);
 
-
-        StockService stockService = new StockService(grade, departement);
-
-
-        Stock nouveauStock = new Stock();
-        nouveauStock.setNom_prod("Ordinateur Portable");
-        nouveauStock.setCategorie("Informatique");
-        nouveauStock.setStatut("Disponible");
-        nouveauStock.setPrix(899.99f);
-        nouveauStock.setQuantite(50);
-
-
-        boolean ajoutReussi = stockService.add(nouveauStock);
-        if (ajoutReussi) {
-            System.out.println("Stock ajouté avec succès.");
-        } else {
-            System.out.println("Échec de l'ajout du stock.");
-        }
-
-
-        Stock stockExist = stockService.getAll().stream()
-                .filter(s -> s.getNom_prod().equals("Ordinateur Portable"))
-                .findFirst().orElse(null);
-
-        if (stockExist != null) {
-            stockExist.setPrix(849.99f);  // Mise à jour du prix
-            boolean updateReussi = stockService.update(stockExist);
-            if (updateReussi) {
-                System.out.println("Stock mis à jour avec succès.");
-            } else {
-                System.out.println("Échec de la mise à jour du stock.");
-            }
-        } else {
-            System.out.println("Le stock à mettre à jour n'existe pas.");
-        }
+        // Tester l'inscription (register)
+        RegisterService registerService = new RegisterService();
+        Employe newEmployee = new Employe();
+        newEmployee.setNom("chamsi");
+        newEmployee.setPrenom("amira");
+        newEmployee.setAdresse("manouba");
+        newEmployee.setPassword("password123");
+        newEmployee.setPoste("Developer");
+        newEmployee.setGrade("Junior");
+        newEmployee.setDepartement("CRM");
+        newEmployee.setSexe("femme");
+        newEmployee.setNiveau("Junior");
+        newEmployee.setTelephone(21436587);
+        newEmployee.setTarifJournalier(45);
+        newEmployee.setJoursCongesRestants(45);
 
 
-        if (stockExist != null) {
-            boolean suppressionReussi = stockService.delete(stockExist);
-            if (suppressionReussi) {
-                System.out.println("Stock supprimé avec succès.");
-            } else {
-                System.out.println("Échec de la suppression du stock.");
-            }
-        } else {
-            System.out.println("Le stock à supprimer n'existe pas.");
-        }
+        boolean registerSuccess = authService.register(newEmployee);
+        System.out.println("Registration success: " + registerSuccess);
 
-
-        List<Stock> stocks = stockService.getAll();
-        if (stocks.isEmpty()) {
-            System.out.println("Aucun stock trouvé.");
-        } else {
-            System.out.println("Liste des stocks :");
-            for (Stock s : stocks) {
-                System.out.println("ID: " + s.getId_prod() + ", Nom: " + s.getNom_prod() +
-                        ", Catégorie: " + s.getCategorie() + ", Prix: " + s.getPrix() + ", Quantité: " + s.getQuantite());
-            }
-        }
+        // Tester l'authentification avec un mauvais mot de passe
+        loginSuccess = authService.login("ch", "password123");
+        System.out.println("Login success (with wrong password): " + loginSuccess);
     }
 }

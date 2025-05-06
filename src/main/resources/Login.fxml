@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Pos?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/8"
+            fx:controller="tn.esprit.controllers.LoginController"
+            style="-fx-background-color: #ffffff;">
+
+    <HBox prefWidth="1000" prefHeight="700"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+        <!-- Image à gauche -->
+        <StackPane prefWidth="500" prefHeight="700"
+                   style="-fx-background-color: #2c3e50;">
+            <ImageView fitWidth="500" fitHeight="700" preserveRatio="false">
+                <image>
+                    <Image url="@images/logo.png" />
+                </image>
+            </ImageView>
+        </StackPane>
+
+        <!-- Formulaire à droite -->
+        <VBox alignment="CENTER" spacing="15.0" prefWidth="500"
+              style="-fx-background-color: linear-gradient(to bottom right, #2c3e50, #3498db);">
+
+            <Label text="Connexion"
+                   textFill="white"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold;" />
+
+            <TextField fx:id="nomField"
+                       promptText="nom"
+                       maxWidth="300"
+                       style="-fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 14px;" />
+
+            <PasswordField fx:id="passwordField"
+                           promptText="Mot de passe"
+                           maxWidth="300"
+                           style="-fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 14px;" />
+
+            <Button fx:id="loginButton"
+                    text="Se connecter"
+                    onAction="#handleLogin"
+                    style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10; -fx-cursor: hand;"
+                    prefWidth="180" />
+
+            <Label fx:id="errorLabel"
+                   textFill="red"
+                   visible="false"
+                   style="-fx-font-size: 12px;" />
+
+            <Hyperlink fx:id="createAccountLink"
+                       text="Créer un compte"
+                       onAction="#handleRegisterRedirect"
+                       style="-fx-text-fill: white; -fx-underline: true; -fx-font-size: 13px;" />
+
+            <Hyperlink fx:id="forgotPasswordLink"
+                       text="Mot de passe oublié ?"
+                       style="-fx-text-fill: white; -fx-underline: true; -fx-font-size: 13px;" />
+        </VBox>
+    </HBox>
+</AnchorPane>

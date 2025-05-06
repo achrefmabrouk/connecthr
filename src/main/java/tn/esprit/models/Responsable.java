@@ -1,6 +1,6 @@
 package tn.esprit.models;
 
-public class Responsable extends employe {
+public class Responsable extends Employe {
 
     public Responsable() {
     }

@@ -5,9 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import tn.esprit.models.Stock;
-import tn.esprit.models.employe;
+import tn.esprit.models.Employe;
 
 public class cardcontroller {
 
@@ -29,7 +28,7 @@ public class cardcontroller {
     @FXML private Label quantiteStockLabel;
 
 
-    public void setData(employe e) {
+    public void setData(Employe e) {
         try {
             String imageUrl = e.getImageSrc();
 
