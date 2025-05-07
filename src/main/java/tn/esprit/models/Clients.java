@@ -1,15 +1,19 @@
 package tn.esprit.models;
 
+import java.util.ArrayList;
 import java.util.List;
-import tn.esprit.models.Commande;
+
+;
 
 public class Clients {
+
+
 
     private int id_client;
     private String nom_client;
     private String prenom_client;
     private int telephone_client;
-    private List<Commande> commandes;
+    private List<Commandes_clients> commandes = new ArrayList<>();
 
     public Clients(String nom_client, String prenom_client, int telephone_client) {
         this.nom_client = nom_client;
@@ -58,12 +62,12 @@ public class Clients {
         return telephone_client;
     }
 
-    public List<Commande> getCommandes() {
+    public List<Commandes_clients> getCommandes() {
         return commandes;
     }
 
 
-    public void setCommandes(List<Commande> commandes) {
+    public void setCommandes(List<Commandes_clients> commandes) {
         this.commandes = commandes;
     }
 
@@ -77,4 +81,5 @@ public class Clients {
                 ", commandes=" + commandes +
                 '}';
     }
+
 }
