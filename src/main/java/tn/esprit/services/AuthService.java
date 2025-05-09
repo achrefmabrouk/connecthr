@@ -44,7 +44,7 @@ public class AuthService {
             ps.setString(4, emp.getPassword());
             ps.setString(5, emp.getGrade());
             ps.setString(6, emp.getDepartement());
-            ps.setInt(7, emp.getTelephone());
+            ps.setString(7, emp.getTelephone());
             ps.setString(8, emp.getSexe());
             ps.setString(9, emp.getPoste());
             ps.setString(10, emp.getNiveau());

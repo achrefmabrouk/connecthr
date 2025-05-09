@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import tn.esprit.models.Stock;
 import tn.esprit.models.Employe;
 import tn.esprit.services.StockService;
-import tn.esprit.services.employeservice;
+import tn.esprit.services.EmployeService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -88,7 +88,7 @@ public class Interfaceadmin implements Initializable {
 
 
     private List<Employe> listemploye() {
-        employeservice employeservice = new employeservice("responsable", "IT");
+        EmployeService employeservice = new EmployeService("responsable", "IT");
         return employeservice.getAll();
     }
 

@@ -5,30 +5,37 @@ import tn.esprit.models.Employe;
 import tn.esprit.utils.connecthrDB;
 
 import java.sql.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class employeservice implements Icrud<Employe> {
+import okhttp3.*;
+
+
+public class EmployeService implements Icrud<Employe> {
     private Connection cnx;
     private String grade_emp;
     private String depart_emp;
     private int id_emp;
+    private static final String API_KEY = "158e0a5a9109eb527768ce11e43ca39e-a5eb7d5d-d004-46e6-942f-48d80f0f2698";
+    private static final String BASE_URL = "https://9k2e8d.api.infobip.com/sms/2/text/advanced";
 
 
 
-    public employeservice(){
+    public EmployeService(){
         cnx = connecthrDB.getInstance().getCnx();
         this.grade_emp = grade_emp;
         this.depart_emp = depart_emp;
     }
 
-    public employeservice(String grade_emp, String depart_emp) {
+    public EmployeService(String grade_emp, String depart_emp) {
         cnx = connecthrDB.getInstance().getCnx();
         this.depart_emp = depart_emp;
         this.grade_emp = grade_emp;
     }
 
-    public employeservice(String grade_emp) {
+    public EmployeService(String grade_emp) {
         cnx = connecthrDB.getInstance().getCnx();
         this.grade_emp = grade_emp;
     }
@@ -45,7 +52,7 @@ public class employeservice implements Icrud<Employe> {
                 pstm.setString(1, employe.getNom());
                 pstm.setString(2, employe.getPrenom());
                 pstm.setString(3, employe.getSexe());
-                pstm.setInt(4, employe.getTelephone());
+                pstm.setString(4, employe.getTelephone());
                 pstm.setString(5, employe.getPoste());
                 pstm.setString(6, employe.getDepartement());
                 pstm.setString(7, employe.getGrade());
@@ -95,7 +102,7 @@ public class employeservice implements Icrud<Employe> {
                 emp.setNom(rs.getString("nom"));
                 emp.setPrenom(rs.getString("prenom"));
                 emp.setSexe(rs.getString("sexe"));
-                emp.setTelephone(rs.getInt("telephone"));
+                emp.setTelephone(rs.getString("telephone"));
                 emp.setPoste(rs.getString("poste"));
                 emp.setDepartement(rs.getString("departement"));
                 emp.setGrade(rs.getString("grade"));
@@ -144,7 +151,7 @@ public class employeservice implements Icrud<Employe> {
                 emp.setNom(rs.getString("nom"));
                 emp.setPrenom(rs.getString("prenom"));
                 emp.setSexe(rs.getString("sexe"));
-                emp.setTelephone(rs.getInt("telephone"));
+                emp.setTelephone(rs.getString("telephone"));
                 emp.setPoste(rs.getString("poste"));
                 emp.setDepartement(rs.getString("departement"));
                 emp.setGrade(rs.getString("grade"));
@@ -175,7 +182,7 @@ public class employeservice implements Icrud<Employe> {
                 pstm.setString(1, employe.getNom());
                 pstm.setString(2, employe.getPrenom());
                 pstm.setString(3, employe.getSexe());
-                pstm.setInt(4, employe.getTelephone());
+                pstm.setString(4, employe.getTelephone());
                 pstm.setString(5, employe.getPoste());
                 pstm.setString(6, employe.getGrade());
                 pstm.setString(7, employe.getDepartement());
@@ -218,4 +225,107 @@ public class employeservice implements Icrud<Employe> {
             return false;
         }
     }
+
+
+    public static String formatPhoneNumber(String phone) {
+        // Vérifie si le numéro commence déjà par +216, sinon l'ajoute
+        if (!phone.startsWith("+216")) {
+            return "+216" + phone;
+        }
+        return phone;
+    }
+
+
+    public boolean doesPhoneExist(String phone) {
+        String qry = "SELECT * FROM employe WHERE telephone = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(qry)) {
+            stmt.setString(1, phone);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public String generateVerificationCode() {
+        Random rand = new Random();
+        return String.format("%06d", rand.nextInt(1000000));
+    }
+
+
+    public boolean storeVerificationCode(String phone, String code) {
+        String qry = "UPDATE employe SET verification_code = ? WHERE telephone = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(qry)) {
+            stmt.setString(1, code);
+            stmt.setString(2, phone);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean sendVerificationSms(String phone, String code) {
+        String formattedPhone = formatPhoneNumber(phone);  // Formate le numéro avant de l'utiliser
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/json");
+
+        String requestBody = "{"
+                + "\"messages\":[{"
+                + "\"destinations\":[{\"to\":\"" + formattedPhone + "\"}],"
+                + "\"from\":\"ConnectHR\","
+                + "\"text\":\"Votre code de vérification est : " + code + "\""
+                + "}]"
+                + "}";
+
+        RequestBody body = RequestBody.create(mediaType, requestBody);
+        Request request = new Request.Builder()
+                .url(BASE_URL)
+                .method("POST", body)
+                .addHeader("Authorization", "App " + API_KEY)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            return response.isSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean verifyCode(String phone, String inputCode) {
+        String qry = "SELECT verification_code FROM employe WHERE telephone = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(qry)) {
+            stmt.setString(1, phone);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("verification_code").equals(inputCode);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public boolean updatePassword(String phone, String newPassword) {
+        String qry = "UPDATE employe SET password = ? WHERE telephone = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(qry)) {
+            stmt.setString(1, newPassword);
+            stmt.setString(2, phone);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
 }

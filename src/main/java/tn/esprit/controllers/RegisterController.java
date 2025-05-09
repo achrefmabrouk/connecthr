@@ -42,7 +42,7 @@ public class RegisterController {
             emp.setPassword(passwordField.getText());
             emp.setGrade(gradeField.getText());
             emp.setDepartement(departementField.getText());
-            emp.setTelephone(Integer.parseInt(telephoneField.getText()));
+            emp.setTelephone(telephoneField.getText());
             emp.setSexe(sexeField.getText());
             emp.setPoste(posteField.getText());
             emp.setNiveau(niveauField.getText());

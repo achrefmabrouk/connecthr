@@ -61,6 +61,7 @@
 
             <Hyperlink fx:id="forgotPasswordLink"
                        text="Mot de passe oublié ?"
+                       onAction="#handleForgotPassword"
                        style="-fx-text-fill: white; -fx-underline: true; -fx-font-size: 13px;" />
         </VBox>
     </HBox>

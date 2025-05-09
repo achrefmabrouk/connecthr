@@ -11,7 +11,7 @@
 <?import javafx.scene.input.MouseEvent?>
 <?import javafx.scene.layout.Region?>
 
-<HBox fx:id="cardemp" alignment="CENTER_LEFT" spacing="15.0" prefHeight="200.0" prefWidth="500.0"
+<HBox fx:id="cardemp" alignment="CENTER_LEFT" spacing="15.0" prefHeight="200.0" prefWidth="400.0"
       style="
           -fx-background-color: #ffffff;
           -fx-background-radius: 12;

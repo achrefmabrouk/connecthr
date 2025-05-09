@@ -25,7 +25,7 @@ public class Main {
         newEmployee.setDepartement("CRM");
         newEmployee.setSexe("femme");
         newEmployee.setNiveau("Junior");
-        newEmployee.setTelephone(21436587);
+        newEmployee.setTelephone("21436587");
         newEmployee.setTarifJournalier(45);
         newEmployee.setJoursCongesRestants(45);
 

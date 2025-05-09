@@ -1,5 +1,6 @@
 package tn.esprit.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
@@ -68,8 +69,12 @@ public class LoginController {
     }
 
     @FXML
-    private void handleForgotPassword() {
+    void handleForgotPassword(ActionEvent event) {
 
-        System.out.println("Mot de passe oublié");
+        Stage stage = (Stage) nomField.getScene().getWindow();
+        Scene scene = SceneLoader.load("/Oublie.fxml");
+        if (scene != null) {
+            stage.setScene(scene);
+        }
     }
 }

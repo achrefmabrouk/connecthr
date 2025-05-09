@@ -2,21 +2,17 @@ package tn.esprit.models;
 
 public class Employe {
 
-    private int id , telephone,JoursCongesRestants;
-    private String nom, prenom,sexe, poste , grade,adresse , departement, niveau,ImageSrc, password;
+    private int id, JoursCongesRestants;
+    private String nom, prenom, sexe, poste, telephone, grade, adresse, departement, niveau, ImageSrc, password, verification_code;
     private double TarifJournalier;
 
+    // Constructeur sans argument
+    public Employe() {}
 
-    public Employe() {
-    }
-
-    public Employe(String grade) {
-        this.grade = grade;
-    }
-
-    public Employe(int id, double tarifJournalier, String niveau, String departement, String adresse, String poste, String grade, String sexe, String prenom, String nom, int telephone, int joursCongesRestants) {
+    // Constructeur avec l'ID et d'autres paramètres
+    public Employe(int id, double tarifJournalier, String niveau, String departement, String adresse, String poste, String grade, String sexe, String prenom, String nom, String telephone, int joursCongesRestants) {
         this.id = id;
-        TarifJournalier = tarifJournalier;
+        this.TarifJournalier = tarifJournalier;
         this.niveau = niveau;
         this.departement = departement;
         this.adresse = adresse;
@@ -26,13 +22,14 @@ public class Employe {
         this.prenom = prenom;
         this.nom = nom;
         this.telephone = telephone;
-        JoursCongesRestants = joursCongesRestants;
+        this.JoursCongesRestants = joursCongesRestants;
     }
 
-    public Employe(double tarifJournalier, int telephone, int joursCongesRestants, String nom, String prenom, String sexe, String poste, String grade, String adresse, String departement, String niveau) {
-        TarifJournalier = tarifJournalier;
+    // Constructeur sans ID (pour l'ajout d'un employé par exemple)
+    public Employe(double tarifJournalier, String telephone, int joursCongesRestants, String nom, String prenom, String sexe, String poste, String grade, String adresse, String departement, String niveau) {
+        this.TarifJournalier = tarifJournalier;
         this.telephone = telephone;
-        JoursCongesRestants = joursCongesRestants;
+        this.JoursCongesRestants = joursCongesRestants;
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
@@ -41,6 +38,15 @@ public class Employe {
         this.adresse = adresse;
         this.departement = departement;
         this.niveau = niveau;
+    }
+
+    // Getters et Setters
+    public String getVerification_code() {
+        return verification_code;
+    }
+
+    public void setVerification_code(String verification_code) {
+        this.verification_code = verification_code;
     }
 
     public String getPassword() {
@@ -107,11 +113,11 @@ public class Employe {
         this.nom = nom;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
@@ -120,7 +126,7 @@ public class Employe {
     }
 
     public void setTarifJournalier(double tarifJournalier) {
-        TarifJournalier = tarifJournalier;
+        this.TarifJournalier = tarifJournalier;
     }
 
     public String getAdresse() {
@@ -144,7 +150,7 @@ public class Employe {
     }
 
     public void setJoursCongesRestants(int joursCongesRestants) {
-        JoursCongesRestants = joursCongesRestants;
+        this.JoursCongesRestants = joursCongesRestants;
     }
 
     public String getImageSrc() {
@@ -152,9 +158,10 @@ public class Employe {
     }
 
     public void setImageSrc(String imageSrc) {
-        ImageSrc = imageSrc;
+        this.ImageSrc = imageSrc;
     }
 
+    // Constructeur avec departement et grade (utilisé ailleurs dans ton code)
     public Employe(String departement, String grade) {
         this.departement = departement;
         this.grade = grade;
