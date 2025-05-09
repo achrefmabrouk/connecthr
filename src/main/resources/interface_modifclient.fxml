@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="930.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.ModifyClientController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="930.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.InterfaceModifClientController">
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="930.0" styleClass="header">
             <children>
@@ -21,11 +21,6 @@
                     </image>
                 </ImageView>
                 <Separator orientation="VERTICAL" prefHeight="61.0" prefWidth="10.0" />
-                <Label styleClass="header-title" text="Modifier un Client">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
             </children>
         </HBox>
     </top>
@@ -98,13 +93,6 @@
     <center>
         <VBox fx:id="contentArea" prefHeight="550.0" prefWidth="664.0" spacing="20.0" styleClass="content" BorderPane.alignment="CENTER">
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="664.0" spacing="10.0">
-                    <children>
-                        <Button fx:id="addClientBtn" mnemonicParsing="false" onAction="#showAddClient" prefHeight="40.0" prefWidth="120.0" styleClass="action-button" text="Ajouter" />
-                        <Button fx:id="modifyClientBtn" mnemonicParsing="false" onAction="#showModifyClient" prefHeight="40.0" prefWidth="120.0" styleClass="action-button" text="Modifier" />
-                        <Button fx:id="displayClientsBtn" mnemonicParsing="false" onAction="#showDisplayClients" prefHeight="40.0" prefWidth="120.0" styleClass="action-button" text="Afficher" />
-                    </children>
-                </HBox>
                 <HBox prefHeight="70.0" prefWidth="664.0" spacing="10.0">
                     <children>
                         <Label prefHeight="45.0" prefWidth="170.0" text="Rechercher Client:">

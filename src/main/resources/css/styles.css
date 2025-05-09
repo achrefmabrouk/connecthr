@@ -47,6 +47,22 @@
     -fx-background-color: #2980b9;
 }
 
+.quantity-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.quantity-button:hover {
+    -fx-background-color: #2980b9;
+}
+.action-button:hover {
+    -fx-background-color: #2980b9;
+}
+
 .form-section {
     -fx-background-color: #ffffff;
     -fx-padding: 20;
@@ -60,16 +76,52 @@
     -fx-font-size: 16px;
     -fx-text-fill: #333333;
 }
-
-.text-field {
+/* Card view styling */
+.order-card {
     -fx-background-color: #ffffff;
-    -fx-border-color: #cccccc;
-    -fx-border-width: 1;
-    -fx-border-radius: 4;
-    -fx-padding: 8;
-    -fx-font-size: 14px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0, 0, 2);
+    -fx-alignment: top-left;
+    -fx-spacing: 8;
 }
 
+/* Hover effect for cards */
+.order-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 12, 0, 0, 4);
+    -fx-background-color: #f8f8f8;
+}
+
+/* Label styling for attributes */
+.card-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Bold attribute names within labels */
+.card-label .attribute-name {
+    -fx-font-weight: bold;
+}
+
+/* Grid styling */
+.products-grid {
+    -fx-padding: 20;
+    -fx-background-color: #f0f0f0;
+    -fx-hgap: 20;
+    -fx-vgap: 20;
+}
+.text-field-custom {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #1976d2;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+}
 .text-field:focused {
     -fx-border-color: #3498db;
 }

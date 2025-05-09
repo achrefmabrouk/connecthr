@@ -2,95 +2,100 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="930.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/22.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.PasserCommande">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/22.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.InterfaceCommandesController">
+
+    <!-- TOP HEADER -->
     <top>
-        <HBox prefHeight="130.0" prefWidth="930.0" styleClass="header" BorderPane.alignment="CENTER">
+        <HBox prefHeight="110.0" prefWidth="1000.0" styleClass="header">
             <children>
-                <HBox prefHeight="109.0" prefWidth="260.0" alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT" prefHeight="89.0" prefWidth="257.0">
                     <children>
-                        <ImageView fitHeight="68.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="90.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/logo.png" />
+                                <Image url="@../java/images/logo.png" />
                             </image>
                         </ImageView>
                     </children>
                 </HBox>
-                <Separator orientation="VERTICAL" prefHeight="61.0" prefWidth="0.0" />
-                <HBox prefHeight="130.0" prefWidth="670.0" />
+                <HBox prefHeight="89.0" prefWidth="501.0">
+                    <children>
+                        <Separator orientation="VERTICAL" prefHeight="89.0" prefWidth="0.0" />
+                    </children>
+                </HBox>
             </children>
         </HBox>
     </top>
+
+    <!-- SIDEBAR -->
     <left>
-        <VBox prefHeight="499.0" prefWidth="266.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+        <VBox prefHeight="500.0" prefWidth="266.0" styleClass="sidebar" BorderPane.alignment="CENTER">
             <children>
                 <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="160.0">
                     <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icons8-disposition-du-tableau-de-bord-50.png" />
+                                <Image url="@../java/images/icons8-disposition-du-tableau-de-bord-24.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="dashboardBtn" mnemonicParsing="false" onAction="#showDashboard" prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="Dashboard" />
+                        <Button fx:id="dashboardBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="Dashboard" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="232.0">
                     <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icons8-conférence-arrière-plan-sélectionné-50.png" />
+                                <Image url="@../java/images/icons8-personnel-50.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="staffBtn" mnemonicParsing="false" onAction="#showStaff" prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="Staff" />
+                        <Button fx:id="staffBtn" mnemonicParsing="false"  prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="Staff" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="232.0">
                     <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icons8-fournisseur-64.png" />
+                                <Image url="@../java/images/icons8-fournisseur-80.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="suppliersBtn" mnemonicParsing="false" onAction="#showSuppliers" prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="Fournisseurs" />
+                        <Button fx:id="suppliersBtn" mnemonicParsing="false"  prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="Fournisseurs" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="81.0" prefWidth="232.0">
                     <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icons8-facture-64.png" />
+                                <Image url="@../java/images/icons8-facture-d'achat-64.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="invoiceBtn" mnemonicParsing="false" onAction="#showInvoices" prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="Factures" />
+                        <Button fx:id="invoiceBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="Factures" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="81.0" prefWidth="232.0">
                     <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icons8-stock-50.png" />
+                                <Image url="@../java/images/icons8-stock-50.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="stockBtn" mnemonicParsing="false" onAction="#showStock" prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="Stock" />
+                        <Button fx:id="stockBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="Stock" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="94.0" prefWidth="232.0">
                     <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icons8-crm-66.png" />
+                                <Image url="@../java/images/icons8-external-crm-basic-ui-elements-2.4-sbts2018-solid-sbts2018-58.png" />
                             </image>
                         </ImageView>
                         <Button fx:id="crmBtn" mnemonicParsing="false" onAction="#showCRM" prefHeight="50.0" prefWidth="170.0" styleClass="sidebar-button" text="CRM" />
@@ -99,108 +104,82 @@
             </children>
         </VBox>
     </left>
+
+    <!-- CENTER CONTENT -->
     <center>
-        <VBox prefHeight="539.0" prefWidth="664.0" styleClass="content" spacing="20.0" BorderPane.alignment="CENTER">
-            <children>
-                <HBox prefHeight="70.0" prefWidth="640.0" spacing="20.0">
+        <ScrollPane prefHeight="678.0" prefWidth="734.0" styleClass="content">
+            <content>
+                <VBox fx:id="commandesContainer" prefHeight="645.0" prefWidth="798.0" spacing="20.0" styleClass="form-section" translateX="40.0">
                     <children>
-                        <HBox prefHeight="70.0" prefWidth="464.0" spacing="10.0">
+
+                        <!-- Recherche client -->
+                        <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="644.0" spacing="20.0">
                             <children>
-                                <Label prefHeight="43.0" prefWidth="169.0" text="Date de commande:" translateY="12.0">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                                </Label>
-                                <DatePicker fx:id="dateSearchInput" prefHeight="45.0" prefWidth="200.0" promptText="Sélectionner une date" translateY="11.0" />
+                                <Label prefHeight="20.0" prefWidth="143.0" text="Téléphone Client :" />
+                                <TextField fx:id="clientPhoneInput" prefHeight="40.0" prefWidth="200.0" promptText="Entrez le numéro de téléphone" />
+                                <Button fx:id="searchClientBtn" onAction="#searchClient" prefWidth="100.0" styleClass="action-button" text="Chercher" />
                             </children>
                         </HBox>
-                        <Button fx:id="searchCommandeBtn" mnemonicParsing="false" onAction="#searchCommande" prefHeight="56.0" prefWidth="205.0" styleClass="action-button" text="Chercher Commandes" />
-                    </children>
-                </HBox>
-                <HBox prefHeight="96.0" prefWidth="664.0" spacing="20.0">
-                    <children>
-                        <Label fx:id="commandeResult" prefHeight="55.0" prefWidth="640.0" wrapText="true" />
-                    </children>
-                </HBox>
-                <VBox prefHeight="300.0" prefWidth="664.0" spacing="15.0" styleClass="form-section">
-                    <children>
-                        <HBox prefHeight="91.0" prefWidth="664.0" spacing="10.0">
+
+                        <!-- Affichage client -->
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="45.0" prefWidth="170.0" text="ID Produit:">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                                </Label>
-                                <TextField fx:id="productIdInput" prefHeight="45.0" prefWidth="200.0" promptText="ID du produit" />
+                                <Label prefWidth="120.0" text="Nom :" />
+                                <Label fx:id="currentNomClient" prefWidth="150.0" styleClass="info-label" />
+                                <Label prefWidth="120.0" text="Prénom :" />
+                                <Label fx:id="currentPrenomClient" prefWidth="150.0" styleClass="info-label" />
                             </children>
                         </HBox>
-                        <HBox prefHeight="91.0" prefWidth="664.0" spacing="10.0">
+
+                        <!-- Date et état commande -->
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="45.0" prefWidth="170.0" text="Quantité:">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                                </Label>
-                                <TextField fx:id="quantityInput" prefHeight="45.0" prefWidth="200.0" promptText="Quantité" />
+                                <Label prefWidth="142.0" text="Date Commande :" />
+                                <Label fx:id="dateField" prefWidth="150.0" styleClass="info-label" />
                             </children>
                         </HBox>
-                        <HBox prefHeight="91.0" prefWidth="664.0" spacing="10.0">
+
+                        <!-- Catégorie -->
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="45.0" prefWidth="170.0" text="Prix:">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                                </Label>
-                                <TextField fx:id="priceInput" prefHeight="45.0" prefWidth="200.0" promptText="Prix total" />
+                                <Label prefWidth="120.0" text="Catégorie :" />
+                                <ComboBox fx:id="categorieComboBox" onAction="#loadProduits" prefWidth="200.0" />
                             </children>
                         </HBox>
-                        <HBox prefHeight="91.0" prefWidth="664.0" spacing="10.0">
+
+                        <!-- Barre de Recherche Produits -->
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="45.0" prefWidth="170.0" text="Date Commande:">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                                </Label>
-                                <Label fx:id="dateCommandeLabel" prefHeight="45.0" prefWidth="200.0" text="Date actuelle" />
+                                <Label prefWidth="120.0" text="Produit :" />
+                                <TextField fx:id="searchProduitTextField" onKeyReleased="#rechercherProduits" prefWidth="200.0" promptText="Recherche produit..." />
                             </children>
                         </HBox>
-                        <HBox prefHeight="91.0" prefWidth="664.0" spacing="10.0">
+
+                        <!-- Affichage des produits sous forme de carte -->
+                        <GridPane fx:id="produitsGrid" hgap="10.0" prefWidth="600.0" styleClass="produits-grid" vgap="10.0">
+                            <!-- Les cartes des produits seront ajoutées dynamiquement -->
+                        </GridPane>
+
+                        <!-- Quantité -->
+                        <HBox alignment="CENTER_LEFT" spacing="20.0" />
+
+                        <!-- Ajouter produit -->
+                        <HBox alignment="CENTER_LEFT" spacing="20.0" />
+
+                        <!-- Table de commande -->
+                        <VBox fx:id="produitsCommandeContainer" prefWidth="600.0" spacing="10.0" styleClass="produit-liste" />
+                          <Button fx:id="addProduitBtn" onAction="#addProduitToCommande" prefWidth="150.0" styleClass="action-button" text="Ajouter Produit" />
+
+                        <!-- Ajouter commande -->
+                        <HBox alignment="CENTER" prefHeight="51.0" prefWidth="746.0" spacing="20.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="45.0" prefWidth="170.0" text="État Commande:">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                                </Label>
-                                <ComboBox fx:id="statusInput" prefHeight="45.0" prefWidth="200.0" promptText="Sélectionner un état">
-                                    <items>
-                                        <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="En attente" />
-                                            <String fx:value="Confirmé" />
-                                            <String fx:value="Livré" />
-                                            <String fx:value="Annulé" />
-                                        </FXCollections>
-                                    </items>
-                                </ComboBox>
+                                <Button fx:id="addCommandeBtn" onAction="#addCommande" prefWidth="150.0" styleClass="action-button" text="Ajouter Commande" />
                             </children>
                         </HBox>
-                        <HBox prefHeight="91.0" prefWidth="664.0" spacing="10.0">
-                            <children>
-                                <Label alignment="CENTER" prefHeight="45.0" prefWidth="170.0" text="ID Client:">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                                </Label>
-                                <TextField fx:id="clientIdInput" prefHeight="45.0" prefWidth="200.0" promptText="ID du client" />
-                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="664.0">
-                            <children>
-                                <Button fx:id="addCommandeBtn" mnemonicParsing="false" onAction="#addCommande" prefHeight="45.0" prefWidth="170.0" styleClass="action-button" text="Ajouter Commande" />
-                            </children>
-                        </HBox>
+
                     </children>
                 </VBox>
-            </children>
-        </VBox>
+            </content>
+        </ScrollPane>
     </center>
 </BorderPane>

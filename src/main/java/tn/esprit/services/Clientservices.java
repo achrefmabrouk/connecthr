@@ -1,5 +1,6 @@
 package tn.esprit.services;
 
+import com.mysql.cj.xdevapi.Client;
 import tn.esprit.interfaces.Icrud;
 import tn.esprit.models.Clients;
 import tn.esprit.models.Commandes_clients;
@@ -15,6 +16,7 @@ public class Clientservices implements Icrud<Clients> {
     public Clientservices() {
         cnx = connecthrDB.getInstance().getCnx();
     }
+
     public Clients chercherClient(int id) {
         String sql = "SELECT * FROM clients WHERE id_client = ?";
         try {
@@ -35,10 +37,26 @@ public class Clientservices implements Icrud<Clients> {
         return null;
     }
 
+    public boolean chercherClientParTelephone(int telephone) {
+        String query = "SELECT 1 FROM clients WHERE telephone_client = ?";
 
+        try (PreparedStatement pst = cnx.prepareStatement(query)) {
+            pst.setInt(1, telephone);
+            ResultSet rs = pst.executeQuery();
+            return rs.next(); // Retourne true si un client existe, false sinon
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la recherche par téléphone : " + e.getMessage());
+            return false;
+        }
+    }
     public boolean add(Clients client) {
+
+
+        if (client.getId_client() != 0 || chercherClientParTelephone(client.getTelephone_client())) {
+            return false;
+        }
+
         String insertClientSQL = "INSERT INTO clients (nom_client, prenom_client, telephone_client) VALUES (?, ?, ?)";
-        String insertCommandeSQL = "INSERT INTO commandes_clients (id_produit, quantite, prix, date_commande, id_client, etat_commande) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pst = cnx.prepareStatement(insertClientSQL, Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, client.getNom_client());
@@ -46,50 +64,17 @@ public class Clientservices implements Icrud<Clients> {
             pst.setInt(3, client.getTelephone_client());
 
             int affectedRows = pst.executeUpdate();
-            if (affectedRows == 0) {
-                System.out.println("❌ Échec lors de l'insertion du client.");
-                return false;
-            }
+
+            if (affectedRows == 0) {return false;}
 
             try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    client.setId_client(generatedKeys.getInt(1)); // Associer l'ID généré au client
-                    System.out.println("✅ Client ajouté avec succès !");
-                } else {
-                    System.out.println("❌ Impossible de récupérer l'ID du client.");
-                    return false;
-                }
-            }
+                    client.setId_client(generatedKeys.getInt(1));
+                    return true;
+                } else {return false;}}
 
-            // Sécuriser la liste des commandes même si elle est null
-            List<Commandes_clients> commandes = client.getCommandes();
-            if (commandes == null) {
-                commandes = new ArrayList<>();
-            }
-
-            // Ajouter chaque commande associée
-            for (Commandes_clients cmd : commandes) {
-                cmd.setId_client(client.getId_client()); // Associer le client à chaque commande
-
-                try (PreparedStatement pstCmd = cnx.prepareStatement(insertCommandeSQL)) {
-                    pstCmd.setInt(1, cmd.getId_produit());
-                    pstCmd.setInt(2, cmd.getQuantite());
-                    pstCmd.setFloat(3, cmd.getPrix());
-                    pstCmd.setDate(4, java.sql.Date.valueOf(cmd.getDate_commande())); // Assurez-vous que la date est correcte
-                    pstCmd.setInt(5, cmd.getId_client()); // Insérer l'ID client dans la commande
-                    pstCmd.setString(6, cmd.getEtat_commande()); // Ex: "En attente" ou "Confirmé"
-
-                    pstCmd.executeUpdate();
-                }
-            }
-
-            return true;
-
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de l'ajout du client : " + e.getMessage());
-            return false;
-        }}
-
+        } catch (SQLException e) {return false;}
+    }
 
     public void afficherClientEtCommandesParTelephone(int telephone) {
         String clientSql = "SELECT * FROM clients WHERE telephone_client = ?";
@@ -188,10 +173,6 @@ public class Clientservices implements Icrud<Clients> {
 
 
 
-
-
-
-
     @Override
     public List<Clients> getAll() {
         List<Clients> clients = new ArrayList<>();
@@ -224,10 +205,10 @@ public class Clientservices implements Icrud<Clients> {
         try {
 
             PreparedStatement pstm1 = cnx.prepareStatement(qry);
-            pstm1.setInt(1, c.getId_client());
-            pstm1.setString(2,c.getNom_client());
-            pstm1.setString(3,c.getPrenom_client());
-            pstm1.setInt(4,c.getTelephone_client());
+            pstm1.setString(1, c.getNom_client());
+            pstm1.setString(2, c.getPrenom_client());
+            pstm1.setInt(3, c.getTelephone_client());
+            pstm1.setInt(4, c.getId_client());
 
             pstm1.executeUpdate();
             return true;
@@ -257,25 +238,28 @@ public class Clientservices implements Icrud<Clients> {
             return false;
         }
     }
-    public Clients chercherClientParTelephone(int telephone) {
-        String sql = "SELECT * FROM clients WHERE telephone_client = ?";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(sql);
-            ps.setInt(1, telephone);
-            ResultSet rs = ps.executeQuery();
+
+
+    public Clients getClientParTelephone(int telephone) {
+        String query = "SELECT nom_client, prenom_client, telephone_client FROM clients WHERE telephone_client = ?";
+
+        try (PreparedStatement pst = cnx.prepareStatement(query)) {
+            pst.setInt(1, telephone);
+            ResultSet rs = pst.executeQuery();
+
             if (rs.next()) {
-                Clients client = new Clients();
-                client.setId_client(rs.getInt("id_client"));
-                client.setNom_client(rs.getString("nom_client"));
-                client.setPrenom_client(rs.getString("prenom_client"));
-                client.setTelephone_client(rs.getInt("telephone_client"));
-                return client;
+                String nom = rs.getString("nom_client");
+                String prenom = rs.getString("prenom_client");
+                int telephoneClient = rs.getInt("telephone_client");
+                return new Clients(nom, prenom, telephoneClient); // Assurez-vous que ce constructeur existe
             }
+            return null; // Aucun client trouvé
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erreur lors de la récupération du client par téléphone : " + e.getMessage());
+            return null;
         }
-        return null;
     }
+
     public Clients chercherClientParNomEtPrenom(String nom, String prenom) {
         String sql = "SELECT * FROM clients WHERE nom_client = ? AND prenom_client = ?";
         try {

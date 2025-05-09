@@ -1,0 +1,67 @@
+/* Styles de base pour la carte */
+.card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: #e0e0e0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);
+    -fx-padding: 15px;
+    -fx-min-width: 250px;
+    -fx-pref-width: 300px;
+    -fx-max-width: 300px;
+}
+
+/* Mise en forme du texte de la carte */
+.card label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-wrap-text: true;
+}
+
+/* Nom du produit */
+.card .nom-prod {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d8eff;
+}
+
+/* Catégorie du produit */
+.card .categorie-prod {
+    -fx-font-size: 14px;
+    -fx-text-fill: #777777;
+    -fx-margin-top: 5px;
+}
+
+/* Prix du produit */
+.card .prix-prod {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d8eff;
+}
+
+/* État de la quantité (disponible/indisponible) */
+.card .etat-prod {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: green;
+    -fx-margin-top: 10px;
+}
+
+/* Si le produit est indisponible, met en rouge */
+.card .etat-prod.indisponible {
+    -fx-text-fill: red;
+}
+
+/* Pour l'effet au survol de la carte */
+.card:hover {
+    -fx-background-color: #f7f7f7;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0, 0, 5);
+}
+
+/* Si tu veux ajouter des icônes ou des images dans la carte, tu peux utiliser ceci */
+.card .image-prod {
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}

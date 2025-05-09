@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"  stylesheets="css/ProdStyle.css"  fx:controller="tn.esprit.controllers.ProduitCardController"
+            prefWidth="300" prefHeight="220"
+            style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5,0,0,1);">
+    <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10"
+          AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+
+        <!-- Label du nom du produit -->
+        <Label fx:id="nomLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <!-- Label de la catégorie du produit -->
+        <Label fx:id="categorieLabel" style="-fx-text-fill: #666666;"/>
+
+        <!-- Label du prix du produit -->
+        <Label fx:id="prixLabel" style="-fx-text-fill: #2d8eff;"/>
+
+        <!-- Label de l'état du produit -->
+        <Label fx:id="etatLabel" style="-fx-text-fill: #28a745;"/>
+
+        <!-- Section pour la quantité -->
+        <HBox alignment="CENTER_LEFT" spacing="20.0">
+            <children>
+                <Label prefWidth="120.0" text="Quantité :" />
+                <!-- Boutons pour ajuster la quantité -->
+                <Button fx:id="decreaseQuantiteBtn" onAction="#decreaseQuantite" prefWidth="40.0" text="-" />
+                <!-- Champ de texte pour saisir la quantité -->
+                <TextField fx:id="quantiteInput" alignment="CENTER" prefWidth="60.0" promptText="1" />
+                <Button fx:id="increaseQuantiteBtn" onAction="#increaseQuantite" prefWidth="40.0" text="+" />
+            </children>
+        </HBox>
+
+    </VBox>
+</AnchorPane>

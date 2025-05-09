@@ -3,7 +3,6 @@ package tn.esprit;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,10 +12,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/AjouterClient.fxml"));
-
-
-
+        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/passercommande.fxml"));
 
         try {
 
